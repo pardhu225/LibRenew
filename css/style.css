@@ -1,37 +1,4 @@
-.columns:after {
-	content: "";
-	display: block;
-	clear: both;
-}
-
-.ass {
-	margin-top: 20px;
-}
-section, aside {
-	float: left;
-	width : 29.33%;
-	background-color: #f2f2f2;
-	margin: 0px 1%;
-	padding: 1%;
-}
-
-.paraheading {
-	position: relative;
-	max-width: 300px;
-}
-.headingcontent {
-	background: #0f0;
-	z-index: 1;
-	position: absolute;
-	left:40%;
-	top:0;
-	
-}
-
-
-
-
-
+/*Navigation bar styles*/
 nav {
 	background-color:rgb(150,150,150);
 	position: fixed;
@@ -70,7 +37,7 @@ body {
 	font-family:arial;
 }
 
-div {
+ {
 	text-align: center;
 }
 
