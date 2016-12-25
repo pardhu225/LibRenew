@@ -32,15 +32,36 @@ nav .nav_item{
 	font-size:18px;
 }
 
+/* Some other styles*/
 body {
 	
 	font-family:arial;
 }
 
- {
+#wrapper {
 	text-align: center;
 }
+.errorbox {
+	background:#ffcccc;
+	border: solid 2px #f00;
+	border-radius:5px;
+	text-align:center;
+	font-size: 15px;
+	width:50%;
+	padding: 5px;
+	margin:3px;
+}
 
+.msgbox {
+	background:#ccffb3;
+	border: solid 2px #0f0;
+	border-radius:5px;
+	text-align: center;
+	font-size:15px;
+	width:50%;
+	padding:5px;
+	margin:3px;
+}
 .form {
 	float:left;
 }

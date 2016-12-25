@@ -9,9 +9,12 @@
 	<body>
 		<div style="height: 38px">This is a clearance area for the nav bar </div>
 		<div id="wrapper">
-			<div class="errorbox">This is an error msg</div>
+			<center>
+				<div class="errorbox">This is an error msg</div>
 			
-			<div class="msgbox">This is a normal msg</div>
+				<div class="msgbox">This is a normal msg</div>
+			</center>
+			
 			<h3>
 				Please enter your login credentials
 			</h3>
