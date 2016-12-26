@@ -13,17 +13,18 @@
 			Roll no:
 			<div style="clear:both"></div>
 		</div>
-		<div id="displayContainer">
-			<div class="displayItem">
-				History:
+			<div id="displayContainer">
+				<div class="displayItem">
+					History:
+				</div>
+				<div class="displayItem">
+					Books taken:
+				</div>
 			</div>
-			<div class="displayItem">
-				Books taken:
-			</div>
-		</div>
-		<button id="renewButton">
-			RENEW
-		</button>
+			<button id="renewButton">
+				RENEW
+			</button>
+		
 		<nav>
 			<a href="#" class="nav_item">Home</a>
 			<a href="#" class="nav_item">About us</a>
