@@ -1,20 +1,27 @@
 <?php session_start(); ?>
 <?php
-if()
+if(!isset($_SESSION['loginStatus']) || $_SESSION['loginStatus']===0)
+{
+	echo "<script>window.location.assign('index.php?q=2');</Script>";
+	die;
+}
+
+$conn = new mysqli("127.0.0.1","root","","librenew");
+
+$sql ='SELECT bookTitle,issueDate FROM issued WHERE username="'.$_SESSION['username'].'"';
 ?>
 <!DOCTYPE html>
 <html>
 	<head>
-		<title></title>
+		<title>Dashboard - LibRenew</title>
 		<link rel="stylesheet" href="css/style.css">
 	</head>
 	<body>
 		<div style="height:38px">This is just a clearance area for the navigation bar</div>
 		<div>
-			<img src="student_img.jpg" alt="Your photo."
+			<img src="students/<?php echo $_SESSION['username']?>.jpg" alt="Your photo."
 			 style="height: 100px; min-width: 80px;float:left;">
-			Student Name:<br><br>
-			Roll no:
+			Student Name:  <?php echo $_SESSION['username']?>
 			<div style="clear:both"></div>
 		</div>
 			<div id="displayContainer">
@@ -22,16 +29,32 @@ if()
 					History:
 					<table>
 						<tr><th>Title</th></tr>
-						<tr class="even"><td>HC Verma</td></tr>
-						<tr class="odd"><td>RD Sharma</td></tr>
+						<?php
+						$res = $conn->query($sql);
+						if($res->num_rows===0)
+							echo "You have not taken any books yet";
+						else
+						{
+							for($i=0;$i<$res->num_rows;$i++)
+							{
+								$row = $res->fetch_array(MYSQL_ASSOC);
+								if($i%2==0)
+									echo '<td class="odd">'.$row['bookTitle'].'</td>';
+								else
+									echo '<td class="even">'.$row['bookTitle'].'</td>';
+							}
+						}
+						?>
 					</table>
 				</div>
 				<div class="displayItem">
-					Books taken:
+					Books yet to be returned:	
 					<table>
 						<tr><th>Title</th><th>Due</th></tr>
-						<!-- TODO complete the method-->
-						<tr class="even"><td>Selena</td><td>tomorrow<img style="float:right;height:20px;width:20px"src="img/renew.jpg" onclick=""></td></tr>
+						<?php
+						$res = $conn->query('SELECT bookTitle,issueDate FROM issued WHERE returned=false AND username='.$_SESSION['username']);
+						
+						?>
 					</table>
 				</div>
 			</div>
