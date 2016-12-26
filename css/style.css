@@ -140,3 +140,15 @@ body {
 .odd {
 	background-color:#aaffaa;
 }
+table {
+	border-collapse:collapse;
+	background:#55ff55;;
+	width:100%;
+}
+td {
+	padding-left:5px;
+	padding-top:5px;
+	padding-bottom:5px;
+	border:solid 1px lightgreen;
+	font-size:14px;
+}
