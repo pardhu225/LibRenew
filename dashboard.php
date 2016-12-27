@@ -8,7 +8,7 @@ if(!isset($_SESSION['loginStatus']) || $_SESSION['loginStatus']===0)
 
 $conn = new mysqli("127.0.0.1","root","","librenew");
 
-$sql ='SELECT bookTitle,issueDate FROM issued WHERE username="'.$_SESSION['username'].'"';
+$sql ='SELECT bookTitle,issueDate FROM issued WHERE username="'.$_SESSION['username'].'" ORDER BY issueDate DESC';
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,7 +28,7 @@ $sql ='SELECT bookTitle,issueDate FROM issued WHERE username="'.$_SESSION['usern
 				<div class="displayItem">
 					History:
 					<table>
-						<tr><th>Title</th></tr>
+						<tr class="headTable"><th>Title</th></tr>
 						<?php
 						$res = $conn->query($sql);
 						if($res->num_rows===0)
@@ -39,9 +39,9 @@ $sql ='SELECT bookTitle,issueDate FROM issued WHERE username="'.$_SESSION['usern
 							{
 								$row = $res->fetch_array(MYSQL_ASSOC);
 								if($i%2==0)
-									echo '<td class="odd">'.$row['bookTitle'].'</td>';
+									echo '<tr class="even"><td>'.$row['bookTitle'].'</td></tr>';
 								else
-									echo '<td class="even">'.$row['bookTitle'].'</td>';
+									echo '<tr class="odd"><td>'.$row['bookTitle'].'</td></tr>';
 							}
 						}
 						?>
@@ -50,9 +50,30 @@ $sql ='SELECT bookTitle,issueDate FROM issued WHERE username="'.$_SESSION['usern
 				<div class="displayItem">
 					Books yet to be returned:	
 					<table>
-						<tr><th>Title</th><th>Due</th></tr>
+						<tr class="headTable"><th>Title</th><th>Due</th></tr>
 						<?php
-						$res = $conn->query('SELECT bookTitle,issueDate FROM issued WHERE returned=false AND username='.$_SESSION['username']);
+						$res = $conn->query('SELECT bookTitle AS title,issueDate AS date FROM issued WHERE returned=0 AND username="'.$_SESSION['username'].'" ORDER BY date DESC');
+						if($conn->error)
+							echo "MYSQL ERROR";
+						if($res->num_rows===0)
+							echo "You havent taken any books yet";
+						else {
+							for($i=0;$i<$res->num_rows;$i++)
+							{
+								$row = $res->fetch_array(MYSQL_ASSOC);
+								$issueDate = strtotime($row['date']);
+								$c= new DateTime();
+								$curr = $c->getTimestamp();
+								$diff = ($curr - $issueDate)/86400;
+								$curr = $issueDate+(7*86400);
+								if($diff<7 && $diff>=5)
+									echo "<tr class='warning'><td>".$row['title']."</td>"."<td>".date("d-m-Y",$curr)."</td>"."</tr>";
+								else if($diff>=7)
+									echo "<tr class='overdue'><td>".$row['title']."</td>"."<td>".date("d-m-Y",$curr)."</td>"."</tr>";
+								else
+									echo "<tr class='normal'><td>".$row['title']."</td>"."<td>".date("d-m-Y",$curr)."</td>"."</tr>";
+							}
+						}
 						
 						?>
 					</table>
@@ -64,7 +85,8 @@ $sql ='SELECT bookTitle,issueDate FROM issued WHERE username="'.$_SESSION['usern
 			<a href="#" class="nav_item">About us</a>
 			<a href="#" class="nav_item">Contact us</a>
 			<a href="#" class="nav_item">Another nav item</a>
-			<a href="#" class="nav_item">Logout</a>
+			<a href="checklogin.php?q=1" class="nav_item" style="float:right">Logout</a>
+			<a href="#" class="nav_item" style="float:right">Date: <?php echo date("d-m-Y");?></a>
 		</nav>
 	</body>
 </html>

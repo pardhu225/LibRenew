@@ -1,6 +1,13 @@
 <?php
 
 session_start();
+if(isset($_GET['q']))
+{
+	echo '<script>window.location.assign("index.php?q=3");</script>';
+	session_destroy();
+	session_unset();
+	die();
+}
 if(!isset($_SESSION['loginStatus']))
 {
 	if(!isset($_POST['username']))

@@ -37,7 +37,7 @@
 				Please enter your login credentials
 			</h3>
 			<!-- TODO Fill the attributes-->
-			<form action="" method="post">
+			<form action="checklogin.php" method="post">
 				<div class="form labels">
 					Roll no:<br>
 					Password:
