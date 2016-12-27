@@ -9,28 +9,22 @@
 	<body>
 		<div style="height: 38px">This is a clearance area for the nav bar </div>
 		<div id="wrapper">
-			<center>
-				<div class="errorbox">
-					<?php
-					if(isset($_GET['q']))
-					{
-						if($_GET['q']==1)
-							echo "Invalid username or password";
-						else if($_GET['q']==2)
-							echo "You have to enter your login credentials first!";
-					}
-					?>
-				</div>
-			
-				<div class="msgbox">
-					<?php
-					if(isset($_GET['q']))
-					{
-						if($_GET['q']==3)
-							echo "Successfully logged out";
-					}
-					?>
-				</div>
+			<center>				
+				<?php
+				if(isset($_GET['q']))
+				{
+					if($_GET['q']==1)
+						echo "<div class='errorbox' id='err'>Invalid username or password</div>";
+					else if($_GET['q']==2)
+						echo "<div class='errorbox' id='err'>You have to enter your login credentials first!</div>";
+				}
+				
+				if(isset($_GET['q']))
+				{
+					if($_GET['q']==3)
+						echo "<div class='msgbox' id='msg'>Successfully logged out</div>";
+				}
+				?>
 			</center>
 			
 			<h3>

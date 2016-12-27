@@ -66,10 +66,14 @@ $sql ='SELECT bookTitle,issueDate FROM issued WHERE username="'.$_SESSION['usern
 								$curr = $c->getTimestamp();
 								$diff = ($curr - $issueDate)/86400;
 								$curr = $issueDate+(7*86400);
-								if($diff<7 && $diff>=5)
-									echo "<tr class='warning'><td>".$row['title']."</td>"."<td>".date("d-m-Y",$curr)."</td>"."</tr>";
-								else if($diff>=7)
+								if($diff>=7)
 									echo "<tr class='overdue'><td>".$row['title']."</td>"."<td>".date("d-m-Y",$curr)."</td>"."</tr>";
+								else if($diff<7 && $diff>=5)
+								{
+									$txt = "<a href='dbengine.php?book=".$row['title']."'><img style='float:right;height:25px;width:25px;' src='up.png'></a>";
+									echo "<tr class='warning'><td>".$row['title'].$txt."</td>"."<td>".date("d-m-Y",$curr)."</td>"."</tr>";
+								}
+									
 								else
 									echo "<tr class='normal'><td>".$row['title']."</td>"."<td>".date("d-m-Y",$curr)."</td>"."</tr>";
 							}
